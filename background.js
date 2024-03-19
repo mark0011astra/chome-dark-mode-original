@@ -1,3 +1,6 @@
-chrome.browserAction.onClicked.addListener(function(tab) {
-    chrome.tabs.sendMessage(tab.id, { action: "toggleDarkMode" });
-});
+chrome.action.onClicked.addListener(function(tab) {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ['content.js']
+    });
+  });

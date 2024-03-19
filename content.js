@@ -1,5 +1,5 @@
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === "toggleDarkMode") {
-      document.body.classList.toggle("dark-mode");
-    }
-});
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+  }
+  
+  toggleDarkMode();
