@@ -1,6 +1,6 @@
-// オプションページのスクリプト
+// options.js
 
-// 設定の保存
+// Save options
 function saveOptions() {
     const darkModeEnabled = document.getElementById("darkModeEnabled").checked;
     chrome.storage.sync.set({ darkModeEnabled: darkModeEnabled }, function() {
@@ -8,13 +8,13 @@ function saveOptions() {
     });
   }
   
-  // 設定の復元
+  // Restore options
   function restoreOptions() {
     chrome.storage.sync.get("darkModeEnabled", function(data) {
       document.getElementById("darkModeEnabled").checked = data.darkModeEnabled;
     });
   }
   
-  // イベントリスナーの登録
+  // Register event listeners
   document.addEventListener("DOMContentLoaded", restoreOptions);
   document.getElementById("darkModeEnabled").addEventListener("change", saveOptions);

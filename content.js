@@ -1,12 +1,7 @@
-// メッセージを受信したときの処理
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === "toggleDarkMode") {
-      toggleDarkMode(request.darkModeEnabled);
-    }
-  });
-  
-  // ダークモードの切り替え
-  function toggleDarkMode(darkModeEnabled) {
+// content.js
+
+// Toggle dark mode
+function toggleDarkMode(darkModeEnabled) {
     if (darkModeEnabled) {
       document.body.classList.add("dark-mode");
     } else {
@@ -14,13 +9,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
   }
   
-  // 初期化処理
+  // Initialize dark mode
   function init() {
-    // ストレージからダークモードの設定を取得
     chrome.storage.sync.get("darkModeEnabled", function(data) {
-      toggleDarkMode(data.darkModeEnabled);
+      toggleDarkMode(data.darkModeEnabled || false);
     });
   }
   
-  // 初期化処理を実行
+  // Execute initialization
   init();
