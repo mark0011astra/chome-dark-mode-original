@@ -1,0 +1,22 @@
+body.dark-mode {
+    background-color: #222;
+    color: #eee;
+}
+
+body.dark-mode a {
+color: #8cf;
+}
+
+body.dark-mode button,
+body.dark-mode input[type="button"],
+body.dark-mode input[type="submit"] {
+background-color: #444;
+color: #eee;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"],
+body.dark-mode textarea {
+background-color: #444;
+color: #eee;
+}
