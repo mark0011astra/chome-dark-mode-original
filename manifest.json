@@ -2,8 +2,8 @@
     "manifest_version": 3,
     "name": "Dark Mode for Chrome",
     "version": "1.0",
-    "description": "Turns web pages into dark mode.",
-    "permissions": ["activeTab", "scripting"],
+    "description": "ウェブページをダークモードに変更します。",
+    "permissions": ["activeTab", "scripting", "storage"],
     "host_permissions": ["<all_urls>"],
     "action": {},
     "background": {
@@ -12,7 +12,10 @@
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "css": ["dark_mode.css"]
+        "css": ["dark_mode.css"],
+        "js": ["content.js"],
+        "run_at": "document_start"
       }
-    ]
+    ],
+    "options_page": "options.html"
   }
