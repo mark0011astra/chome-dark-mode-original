@@ -1,181 +1,164 @@
-# chome-dark-mode-original
-chomeをダークモードにするシンプルな拡張機能
-## 概要
+# Chrome Dark Mode Extension
 
-Dark Mode for Chrome は、Google Chrome 用の拡張機能で、ウェブページをダークモードに変換します。ユーザーは、拡張機能のアイコンをクリックするだけでダークモードのオン/オフを切り替えることができます。また、オプションページでダークモードを永続的に有効または無効にすることもできます。
+This Chrome extension allows users to apply a dark mode to any website they visit. The extension provides a seamless and customizable dark mode experience, making it easier on the eyes and reducing eye strain, especially in low-light environments.
 
-## ファイル構成
+## Features
 
-拡張機能は以下のファイルで構成されています：
+- Toggle dark mode on and off with a single click on the extension icon
+- Customize the dark mode colors (background, text, and links) through the options page
+- Automatically apply dark mode to new tabs and websites
+- Persist user preferences across browser sessions
+- Exclude specific elements (e.g., images, videos) from being affected by dark mode
 
-- `manifest.json`：拡張機能のマニフェストファイル
-- `background.js`：バックグラウンドスクリプト
-- `content.js`：コンテンツスクリプト
-- `dark_mode.css`：ダークモードのスタイルシート
-- `options.html`：オプションページの HTML ファイル
-- `options.js`：オプションページのスクリプト
-- `icon.png`：拡張機能のアイコン
+## Installation
 
-## マニフェストファイル（manifest.json）
+1. Download or clone the extension files from the repository.
+2. Open Google Chrome and navigate to `chrome://extensions`.
+3. Enable "Developer mode" using the toggle switch in the top right corner.
+4. Click on "Load unpacked" and select the directory containing the extension files.
+5. The Chrome Dark Mode Extension should now be installed and visible in your browser toolbar.
 
-`manifest.json`ファイルは、拡張機能のメタデータとパーミッションを定義します。主な要素は以下の通りです：
+## Usage
 
-- `manifest_version`：マニフェストのバージョン（現在は3）
-- `name`：拡張機能の名前
-- `version`：拡張機能のバージョン
-- `description`：拡張機能の説明
-- `permissions`：拡張機能が必要とするパーミッション
-- `host_permissions`：拡張機能がアクセスできるホストのパターン
-- `action`：拡張機能のアクションの定義（アイコンとタイトル）
-- `background`：バックグラウンドスクリプトの定義
-- `content_scripts`：コンテンツスクリプトの定義（適用するウェブページ、CSS、JS）
-- `options_page`：オプションページの定義
-
-## バックグラウンドスクリプト（background.js）
-
-`background.js`ファイルは、拡張機能のメインロジックを担当します。主な機能は以下の通りです：
-
-- ダークモードの初期状態を読み込む
-- アイコンのクリックイベントを監視し、ダークモードのオン/オフを切り替える
-- アイコンのタイトルをダークモードの状態に応じて更新する
-- ストレージの変更を監視し、他のタブに変更を反映する
-
-## コンテンツスクリプト（content.js）
-
-`content.js`ファイルは、ウェブページにインジェクトされ、ダークモードの適用を担当します。主な機能は以下の通りです：
-
-- ダークモードのオン/オフに応じて、`<body>`要素にクラスを追加/削除する
-- ストレージからダークモードの設定を読み込み、初期化する
-
-## ダークモードのスタイルシート（dark_mode.css）
-
-`dark_mode.css`ファイルは、ダークモードが有効になったときに適用される CSS スタイルを定義します。主なスタイルは以下の通りです：
-
-- `background-color`：背景色
-- `color`：テキスト色
-- `a`：リンクの色
-- `button`、`input[type="button"]`、`input[type="submit"]`：ボタンの背景色とテキスト色
-- `input[type="text"]`、`input[type="password"]`、`textarea`：フォーム要素の背景色とテキスト色
-
-## オプションページ（options.html と options.js）
-
-`options.html`ファイルと`options.js`ファイルは、拡張機能のオプションページを構成します。オプションページでは、ユーザーがダークモードを永続的に有効または無効にすることができます。
-
-- `options.html`：オプションページの HTML 構造を定義
-- `options.js`：オプションの保存と復元を担当するスクリプト
-
-## 動作の流れ
-
-1. ユーザーが拡張機能のアイコンをクリックすると、`background.js`がアイコンのクリックイベントを受け取り、ダークモードのオン/オフを切り替える。
-2. `background.js`は、`chrome.storage.sync`を使用してダークモードの状態を保存し、アイコンのタイトルを更新する。
-3. `background.js`は、`chrome.scripting.executeScript`を使用して`content.js`をアクティブなタブにインジェクトする。
-4. `content.js`は、`chrome.storage.sync`からダークモードの状態を読み込み、`<body>`要素にクラスを追加/削除してダークモードを適用する。
-5. ユーザーがオプションページでダークモードを永続的に有効/無効にすると、`options.js`が`chrome.storage.sync`を使用してその設定を保存する。
-6. `background.js`は、`chrome.storage.onChanged`イベントを監視し、ダークモードの状態が変更されたときに他のタブに変更を反映する。
-
-## 注意点
-
-- この拡張機能は、Manifest V3 を使用しています。Manifest V2 とは異なる点があるため、注意が必要です。
-- `chrome.storage.sync`を使用するには、`"storage"`パーミッションが必要です。
-- `chrome://`で始まるURLを含むタブには、拡張機能を適用できません。
-- ダークモードのスタイルは、`dark_mode.css`で定義されています。必要に応じてスタイルを追加・修正してください。
-
-## 今後の改善点
-
-- ユーザーが特定のウェブサイトに対してダークモードを無効にできるようにする
-- ダークモードのカラーテーマをカスタマイズできるようにする
-- キーボードショートカットでダークモードのオン/オフを切り替えられるようにする
-- ダークモードの適用をより詳細に制御できるようにする（特定の要素を除外するなど）
-
-
-# Dark Mode for Chrome - Developer Documentation
-
-## Overview
-
-Dark Mode for Chrome is a Google Chrome extension that converts web pages to dark mode. Users can toggle dark mode on or off simply by clicking the extension icon. Additionally, users can permanently enable or disable dark mode through the options page.
+- Click on the extension icon in the browser toolbar to toggle dark mode on or off for the current website.
+- To customize the dark mode colors, right-click on the extension icon and select "Options".
+- In the options page, you can enable or disable dark mode, and choose custom colors for the background, text, and links.
+- The extension will automatically apply your preferences to all websites you visit.
 
 ## File Structure
 
-The extension consists of the following files:
+- `manifest.json`: The extension manifest file containing metadata and configuration.
+- `background.js`: The background script responsible for managing the extension's state and applying dark mode to tabs.
+- `content.js`: The content script injected into web pages to apply dark mode styles.
+- `dark_mode.css`: The stylesheet containing the dark mode styles.
+- `options.html`: The options page HTML template.
+- `options.js`: The options page script for handling user preferences.
 
-- `manifest.json`: The extension's manifest file
-- `background.js`: The background script
-- `content.js`: The content script
-- `dark_mode.css`: The stylesheet for dark mode
-- `options.html`: The HTML file for the options page
-- `options.js`: The script for the options page
-- `icon.png`: The extension's icon
+## Code Overview
 
-## Manifest File (manifest.json)
+### `manifest.json`
 
-The `manifest.json` file defines the extension's metadata and permissions. The main elements are as follows:
+The manifest file defines the extension's metadata, permissions, and components. Key components include:
 
-- `manifest_version`: The version of the manifest (currently 3)
-- `name`: The name of the extension
-- `version`: The version of the extension
-- `description`: A description of the extension
-- `permissions`: The permissions required by the extension
-- `host_permissions`: The host patterns the extension can access
-- `action`: The definition of the extension's action (icon and title)
-- `background`: The definition of the background script
-- `content_scripts`: The definition of the content scripts (web pages to apply to, CSS, JS)
-- `options_page`: The definition of the options page
+- `permissions`: Specifies the required permissions for the extension to function, such as `storage` and `activeTab`.
+- `background`: Defines the background script (`background.js`) responsible for managing the extension's state.
+- `content_scripts`: Specifies the content script (`content.js`) to be injected into web pages.
+- `options_page`: Defines the options page (`options.html`) for user customization.
 
-## Background Script (background.js)
+### `background.js`
 
-The `background.js` file is responsible for the main logic of the extension. Its main functions are as follows:
+The background script is responsible for managing the extension's state and applying dark mode to tabs. Key functionalities include:
 
-- Load the initial state of dark mode
-- Monitor icon click events and toggle dark mode on/off
-- Update the icon title based on the state of dark mode
-- Monitor storage changes and reflect changes to other tabs
+- Storing and retrieving the extension's state (dark mode enabled and custom colors) using `chrome.storage.sync`.
+- Listening for extension icon clicks and toggling dark mode on or off.
+- Updating the extension icon's title based on the current state.
+- Applying dark mode to new tabs and updating tabs when the extension's state changes.
 
-## Content Script (content.js)
+### `content.js`
 
-The `content.js` file is injected into web pages and is responsible for applying dark mode. Its main functions are as follows:
+The content script is injected into web pages and applies the dark mode styles. It communicates with the background script to receive the current extension state and custom colors. Key functionalities include:
 
-- Add/remove a class to the `<body>` element based on whether dark mode is on/off
-- Load the dark mode setting from storage and initialize
+- Toggling the `dark-mode` class on the `body` element based on the extension state.
+- Applying custom colors to the web page using CSS variables.
 
-## Dark Mode Stylesheet (dark_mode.css)
+### `dark_mode.css`
 
-The `dark_mode.css` file defines the CSS styles that are applied when dark mode is enabled. The main styles are as follows:
+The stylesheet contains the dark mode styles applied to web pages. It uses CSS variables to allow for custom color theming. The styles are applied to various elements such as the body, headers, paragraphs, links, and more. Images and media elements are excluded from the dark mode styles.
 
-- `background-color`: The background color
-- `color`: The text color
-- `a`: The color of links
-- `button`, `input[type="button"]`, `input[type="submit"]`: The background color and text color of buttons
-- `input[type="text"]`, `input[type="password"]`, `textarea`: The background color and text color of form elements
+### `options.html` and `options.js`
 
-## Options Page (options.html and options.js)
+The options page allows users to customize the dark mode colors and enable/disable the extension. The `options.html` file defines the UI elements, while the `options.js` script handles saving and loading user preferences using `chrome.storage.sync`.
 
-The `options.html` and `options.js` files make up the extension's options page. On the options page, users can permanently enable or disable dark mode.
+## Limitations and Future Improvements
 
-- `options.html`: Defines the HTML structure of the options page
-- `options.js`: The script responsible for saving and restoring options
+- The extension may not work perfectly on all websites due to the wide variety of web page structures and styles. In some cases, manual adjustments to the CSS styles might be necessary.
+- Future improvements could include more granular control over the elements affected by dark mode, the ability to exclude specific websites, and support for additional customization options.
 
-## Flow of Operation
+## Conclusion
 
-1. When the user clicks the extension icon, `background.js` receives the icon click event and toggles dark mode on/off.
-2. `background.js` uses `chrome.storage.sync` to save the state of dark mode and updates the icon title.
-3. `background.js` uses `chrome.scripting.executeScript` to inject `content.js` into the active tab.
-4. `content.js` reads the state of dark mode from `chrome.storage.sync` and adds/removes a class to the `<body>` element to apply dark mode.
-5. When the user permanently enables/disables dark mode on the options page, `options.js` uses `chrome.storage.sync` to save that setting.
-6. `background.js` monitors the `chrome.storage.onChanged` event and reflects changes to other tabs when the state of dark mode is changed.
+The Chrome Dark Mode Extension provides an easy and customizable way to apply a dark theme to websites. By leveraging Chrome's extension APIs and injecting custom styles, the extension offers a seamless dark mode experience across the web. The modular architecture and use of Chrome's storage API allow for easy customization and persistence of user preferences.
 
-## Notes
+Feel free to contribute to the project by submitting pull requests or reporting issues on the GitHub repository. Happy dark mode browsing!
 
-- This extension uses Manifest V3. There are differences from Manifest V2, so caution is necessary.
-- To use `chrome.storage.sync`, the `"storage"` permission is required.
-- The extension cannot be applied to tabs that include URLs starting with `chrome://`.
-- The styles for dark mode are defined in `dark_mode.css`. Add or modify styles as needed.
+# Chrome ダークモード拡張機能
 
-## Future Improvements
+このChrome拡張機能は、ユーザーが訪問するすべてのウェブサイトにダークモードを適用することができます。シームレスでカスタマイズ可能なダークモード体験を提供し、目の負担を軽減し、特に低照度環境での目の疲れを軽減します。
 
-- Allow users to disable dark mode for specific websites
-- Allow customization of the dark mode color theme
-- Allow toggling dark mode on/off with a keyboard shortcut
-- Allow more detailed control over the application of dark mode (e.g., excluding specific elements)
+## 機能
 
+- 拡張機能のアイコンをクリックするだけでダークモードのオン/オフを切り替えられます
+- オプションページでダークモードの色（背景、テキスト、リンク）をカスタマイズできます
+- 新しいタブやウェブサイトに自動的にダークモードを適用します
+- ユーザーの設定をブラウザのセッション間で保持します
+- 特定の要素（画像、動画など）がダークモードの影響を受けないようにすることができます
 
+## インストール
+
+1. リポジトリから拡張機能のファイルをダウンロードまたはクローンします。
+2. Google Chromeを開き、`chrome://extensions`に移動します。
+3. 右上の切り替えスイッチを使用して「デベロッパーモード」を有効にします。
+4. 「パッケージ化されていない拡張機能を読み込む」をクリックし、拡張機能のファイルが含まれるディレクトリを選択します。
+5. Chrome ダークモード拡張機能がインストールされ、ブラウザのツールバーに表示されます。
+
+## 使用方法
+
+- ブラウザのツールバーにある拡張機能のアイコンをクリックすると、現在のウェブサイトのダークモードのオン/オフが切り替わります。
+- ダークモードの色をカスタマイズするには、拡張機能のアイコンを右クリックして「オプション」を選択します。
+- オプションページでは、ダークモードの有効/無効を切り替えたり、背景、テキスト、リンクのカスタムカラーを選択したりできます。
+- 拡張機能は自動的にユーザーの設定をすべての訪問したウェブサイトに適用します。
+
+## ファイル構成
+
+- `manifest.json`: メタデータと設定を含む拡張機能のマニフェストファイルです。
+- `background.js`: 拡張機能の状態を管理し、タブにダークモードを適用するバックグラウンドスクリプトです。
+- `content.js`: ダークモードのスタイルを適用するためにウェブページに挿入されるコンテンツスクリプトです。
+- `dark_mode.css`: ダークモードのスタイルを含むスタイルシートです。
+- `options.html`: オプションページのHTMLテンプレートです。
+- `options.js`: ユーザーの設定を処理するオプションページのスクリプトです。
+
+## コードの概要
+
+### `manifest.json`
+
+マニフェストファイルは、拡張機能のメタデータ、権限、コンポーネントを定義します。主要なコンポーネントは次のとおりです。
+
+- `permissions`: 拡張機能が機能するために必要な権限（`storage`や`activeTab`など）を指定します。
+- `background`: 拡張機能の状態を管理するバックグラウンドスクリプト（`background.js`）を定義します。
+- `content_scripts`: ウェブページに挿入されるコンテンツスクリプト（`content.js`）を指定します。
+- `options_page`: ユーザーのカスタマイズ用のオプションページ（`options.html`）を定義します。
+
+### `background.js`
+
+バックグラウンドスクリプトは、拡張機能の状態を管理し、タブにダークモードを適用する役割を担います。主な機能は次のとおりです。
+
+- `chrome.storage.sync`を使用して、拡張機能の状態（ダークモードの有効/無効とカスタムカラー）を保存および取得します。
+- 拡張機能のアイコンのクリックをリッスンし、ダークモードのオン/オフを切り替えます。
+- 現在の状態に基づいて拡張機能のアイコンのタイトルを更新します。
+- 新しいタブにダークモードを適用し、拡張機能の状態が変更されたときにタブを更新します。
+
+### `content.js`
+
+コンテンツスクリプトはウェブページに挿入され、ダークモードのスタイルを適用します。バックグラウンドスクリプトと通信して、現在の拡張機能の状態とカスタムカラーを受け取ります。主な機能は次のとおりです。
+
+- 拡張機能の状態に基づいて、`body`要素に`dark-mode`クラスを切り替えます。
+- CSSの変数を使用して、ウェブページにカスタムカラーを適用します。
+
+### `dark_mode.css`
+
+スタイルシートには、ウェブページに適用されるダークモードのスタイルが含まれています。カスタムカラーのテーマ設定を可能にするために、CSS変数を使用しています。スタイルは、body、ヘッダー、段落、リンクなど、さまざまな要素に適用されます。画像やメディア要素は、ダークモードのスタイルから除外されます。
+
+### `options.html`と`options.js`
+
+オプションページでは、ユーザーがダークモードの色をカスタマイズしたり、拡張機能を有効/無効にしたりできます。`options.html`ファイルはUIの要素を定義し、`options.js`スクリプトは`chrome.storage.sync`を使用してユーザーの設定の保存と読み込みを処理します。
+
+## 制限事項と今後の改善点
+
+- ウェブページの構造やスタイルは多種多様であるため、すべてのウェブサイトで完璧に機能するとは限りません。場合によっては、CSSスタイルを手動で調整する必要があるかもしれません。
+- 今後の改善点としては、ダークモードの影響を受ける要素をより細かく制御できるようにすること、特定のウェブサイトを除外する機能、追加のカスタマイズオプションのサポートなどが考えられます。
+
+## 結論
+
+Chrome ダークモード拡張機能は、ウェブサイトにダークテーマを適用する簡単でカスタマイズ可能な方法を提供します。Chromeの拡張機能APIを活用し、カスタムスタイルを挿入することで、ウェブ全体でシームレスなダークモード体験を提供します。モジュール式のアーキテクチャとChromeのストレージAPIの使用により、ユーザーの設定を簡単にカスタマイズし、永続化することができます。
+
+GitHubのリポジトリでプルリクエストを送信したり、問題を報告したりすることで、このプロジェクトに貢献してください。ダークモードでのブラウジングをお楽しみください！
 

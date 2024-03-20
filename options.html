@@ -2,6 +2,14 @@
 <html>
 <head>
   <title>Dark Mode for Chrome - Options</title>
+  <style>
+    input[type="color"] {
+      width: 100%;
+      height: 30px;
+      border: none;
+      outline: none;
+    }
+  </style>
 </head>
 <body>
   <h1>Dark Mode for Chrome - Options</h1>
@@ -9,6 +17,23 @@
     <input type="checkbox" id="darkModeEnabled">
     Enable Dark Mode
   </label>
+  <br><br>
+  <label>
+    Background Color:
+    <input type="color" id="backgroundColor" value="#222222">
+  </label>
+  <br><br>
+  <label>
+    Text Color:
+    <input type="color" id="textColor" value="#eeeeee">
+  </label>
+  <br><br>
+  <label>
+    Link Color:
+    <input type="color" id="linkColor" value="#88ccff">
+  </label>
+  <br><br>
+  <button id="saveButton">Save</button>
   <script src="options.js"></script>
 </body>
 </html>

@@ -6,28 +6,39 @@ body.dark-mode footer,
 body.dark-mode section,
 body.dark-mode nav,
 body.dark-mode div,
-body.dark-mode main:not(img),
 body.dark-mode table,
 body.dark-mode ul,
-body.dark-mode li:not(img) {
-  background-color: #222 !important;
-  color: #eee !important;
+body.dark-mode ol,
+body.dark-mode li,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode blockquote,
+body.dark-mode pre,
+body.dark-mode code,
+body.dark-mode button,
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: var(--dark-mode-background-color) !important;
+  color: var(--dark-mode-text-color) !important;
 }
 
 body.dark-mode a {
-  color: #8cf !important;
+  color: var(--dark-mode-link-color) !important;
 }
 
-body.dark-mode button,
-body.dark-mode input[type="button"],
-body.dark-mode input[type="submit"] {
-  background-color: #444 !important;
-  color: #eee !important;
-}
-
-body.dark-mode input[type="text"],
-body.dark-mode input[type="password"],
-body.dark-mode textarea {
-  background-color: #444 !important;
-  color: #eee !important;
+body.dark-mode img,
+body.dark-mode video,
+body.dark-mode iframe,
+body.dark-mode canvas,
+body.dark-mode svg,
+body.dark-mode picture,
+body.dark-mode source {
+  filter: none !important;
 }
