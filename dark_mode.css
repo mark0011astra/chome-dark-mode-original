@@ -1,24 +1,33 @@
 /* dark_mode.css */
 
-body.dark-mode {
-    background-color: #222;
-    color: #eee;
-  }
-  
-  body.dark-mode a {
-    color: #8cf;
-  }
-  
-  body.dark-mode button,
-  body.dark-mode input[type="button"],
-  body.dark-mode input[type="submit"] {
-    background-color: #444;
-    color: #eee;
-  }
-  
-  body.dark-mode input[type="text"],
-  body.dark-mode input[type="password"],
-  body.dark-mode textarea {
-    background-color: #444;
-    color: #eee;
-  }
+body.dark-mode,
+body.dark-mode header,
+body.dark-mode footer,
+body.dark-mode section,
+body.dark-mode nav,
+body.dark-mode div,
+body.dark-mode main:not(img),
+body.dark-mode table,
+body.dark-mode ul,
+body.dark-mode li:not(img) {
+  background-color: #222 !important;
+  color: #eee !important;
+}
+
+body.dark-mode a {
+  color: #8cf !important;
+}
+
+body.dark-mode button,
+body.dark-mode input[type="button"],
+body.dark-mode input[type="submit"] {
+  background-color: #444 !important;
+  color: #eee !important;
+}
+
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"],
+body.dark-mode textarea {
+  background-color: #444 !important;
+  color: #eee !important;
+}

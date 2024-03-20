@@ -1,29 +1,51 @@
 // background.js
 
-// Initialize the dark mode state
-let darkModeEnabled = false;
+let darkModeEnabled = true;
 
-// Load the initial state from storage
-chrome.storage.sync.get("darkModeEnabled", function(data) {
-  darkModeEnabled = data.darkModeEnabled || false;
+chrome.storage.sync.get("darkModeEnabled", function (data) {
+  if (data.darkModeEnabled === false) {
+    darkModeEnabled = false;
+  }
   updateActionTitle();
 });
 
-// Listen for icon click events
-chrome.action.onClicked.addListener(function(tab) {
-  if (tab.url.startsWith("chrome://")) return;
+chrome.action.onClicked.addListener(function (tab) {
+  if (tab.url && tab.url.startsWith("chrome://")) return;
   darkModeEnabled = !darkModeEnabled;
   updateActionTitle();
-  chrome.storage.sync.set({ darkModeEnabled: darkModeEnabled }, function() {
-    chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ['content.js']
-    });
+  chrome.storage.sync.set({ darkModeEnabled: darkModeEnabled }, function () {
+    applyDarkModeToTab(tab);
   });
 });
 
-// Update the action title based on the dark mode state
 function updateActionTitle() {
   const title = darkModeEnabled ? "Disable Dark Mode" : "Enable Dark Mode";
   chrome.action.setTitle({ title: title });
 }
+
+function applyDarkModeToTab(tab) {
+  if (tab.url && !tab.url.startsWith("chrome://")) {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["content.js"],
+    });
+  }
+}
+
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  if (changeInfo.status === "complete" && darkModeEnabled) {
+    applyDarkModeToTab(tab);
+  }
+});
+
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+  if (namespace === "sync" && changes.darkModeEnabled) {
+    darkModeEnabled = changes.darkModeEnabled.newValue;
+    updateActionTitle();
+    chrome.tabs.query({}, function (tabs) {
+      tabs.forEach(function (tab) {
+        applyDarkModeToTab(tab);
+      });
+    });
+  }
+});
