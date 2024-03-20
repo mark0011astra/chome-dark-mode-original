@@ -1,8 +1,10 @@
 # Chrome Dark Mode Extension
 
 This Chrome extension allows users to apply a dark mode to any website they visit. The extension provides a seamless and customizable dark mode experience, making it easier on the eyes and reducing eye strain, especially in low-light environments.
-![alt text](image.png)
-![alt text](image-1.png)
+<img src="image.png" width="50%">
+<img src="image-1" width="50%">
+
+
 ## Features
 
 - Toggle dark mode on and off with a single click on the extension icon
